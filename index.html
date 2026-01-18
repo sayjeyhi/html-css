@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 Elements You Need</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            margin-top: 40px;
+            color: #444;
+        }
+
+        .example {
+            background: #f4f4f4;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #333;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+<h1>HTML5 Elements You Need</h1>
+
+<h2>1. &lt;dialog&gt; - Native Modal Windows</h2>
+<p>Create modal windows without JavaScript frameworks.</p>
+<div class="example">
+    <dialog id="myDialog">
+        <h3>This is a Dialog</h3>
+        <p>No JavaScript frameworks required!</p>
+        <button onclick="this.closest('dialog').close()">Close</button>
+    </dialog>
+    <button onclick="document.getElementById('myDialog').showModal()">Open Dialog</button>
+</div>
+<pre>&lt;dialog id="myDialog"&gt;
+  &lt;h3&gt;Dialog Title&lt;/h3&gt;
+  &lt;button onclick="this.closest('dialog').close()"&gt;Close&lt;/button&gt;
+&lt;/dialog&gt;
+&lt;button onclick="document.getElementById('myDialog').showModal()"&gt;Open&lt;/button&gt;</pre>
+
+<h2>2. &lt;details&gt; & &lt;summary&gt; - Collapsible Sections</h2>
+<p>Expandable/collapsible content without JavaScript.</p>
+<div class="example">
+    <details>
+        <summary>Click to expand</summary>
+        <p>This content can be expanded and collapsed without any JavaScript!</p>
+    </details>
+</div>
+<pre>&lt;details&gt;
+  &lt;summary&gt;Click to expand&lt;/summary&gt;
+  &lt;p&gt;Hidden content here&lt;/p&gt;
+&lt;/details&gt;</pre>
+
+<h2>3. &lt;datalist&gt; - Autocomplete for Inputs</h2>
+<p>Native autocomplete suggestions.</p>
+<div class="example">
+    <input list="browsers" placeholder="Choose a browser">
+    <datalist id="browsers">
+        <option value="Chrome">
+        <option value="Firefox">
+        <option value="Safari">
+        <option value="Edge">
+    </datalist>
+</div>
+<pre>&lt;input list="browsers"&gt;
+&lt;datalist id="browsers"&gt;
+  &lt;option value="Chrome"&gt;
+  &lt;option value="Firefox"&gt;
+&lt;/datalist&gt;</pre>
+
+<h2>4. &lt;meter&gt; - Visual Value Gauges</h2>
+<p>Display measurements within a range.</p>
+<div class="example">
+    <label>Disk Usage:</label>
+    <meter value="75" min="0" max="100" low="30" high="70" optimum="0">75%</meter>
+    <br>
+    <label>Battery:</label>
+    <meter value="85" min="0" max="100" low="20" high="60" optimum="100">85%</meter>
+</div>
+<pre>&lt;meter value="75" min="0" max="100" low="30" high="70" optimum="0"&gt;75%&lt;/meter&gt;</pre>
+
+<h2>5. &lt;progress&gt; - Progress Bars</h2>
+<p>Show completion progress.</p>
+<div class="example">
+    <label>Upload Progress:</label>
+    <progress value="70" max="100">70%</progress>
+</div>
+<pre>&lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;</pre>
+
+<h2>6. &lt;output&gt; - Dynamic Calculation Results</h2>
+<p>Display calculation results with semantic meaning.</p>
+<div class="example">
+    <form oninput="result.value = parseInt(a.value) + parseInt(b.value)">
+        <input type="number" id="a" value="5"> +
+        <input type="number" id="b" value="10"> =
+        <output name="result" for="a b">15</output>
+    </form>
+</div>
+<pre>&lt;form oninput="result.value = parseInt(a.value) + parseInt(b.value)"&gt;
+  &lt;input type="number" id="a" value="5"&gt; +
+  &lt;input type="number" id="b" value="10"&gt; =
+  &lt;output name="result" for="a b"&gt;15&lt;/output&gt;
+&lt;/form&gt;</pre>
+
+<h2>7. &lt;mark&gt; - Highlighted Text</h2>
+<p>Semantic highlighting for search results or emphasis.</p>
+<div class="example">
+    <p>The <mark>quick brown fox</mark> jumps over the lazy dog.</p>
+</div>
+<pre>&lt;p&gt;The &lt;mark&gt;quick brown fox&lt;/mark&gt; jumps over the lazy dog.&lt;/p&gt;</pre>
+
+<h2>8. &lt;time&gt; - Dates and Times</h2>
+<p>Machine-readable dates with human-friendly display.</p>
+<div class="example">
+    <!-- Just a date -->
+    <p>Article published: <time datetime="2025-05-20">May 20, 2025</time></p>
+
+    <!-- Date and time -->
+    <p>Event starts: <time datetime="2025-05-20T14:30:00">2:30 PM on May 20, 2025</time></p>
+
+    <!-- Just a time -->
+    <p>Store opens: <time datetime="09:00:00">9:00 AM</time></p>
+
+    <!-- A duration -->
+    <p>Flight time: <time datetime="PT2H30M">2 hours and 30 minutes</time></p>
+</div>
+<pre>&lt;!-- Just a date --&gt;
+&lt;time datetime="2025-05-20"&gt;May 20, 2025&lt;/time&gt;
+
+&lt;!-- Date and time --&gt;
+&lt;time datetime="2025-05-20T14:30:00"&gt;2:30 PM on May 20, 2025&lt;/time&gt;
+
+&lt;!-- Just a time --&gt;
+&lt;time datetime="14:30:00"&gt;2:30 PM&lt;/time&gt;
+
+&lt;!-- A duration --&gt;
+&lt;time datetime="PT2H30M"&gt;2 hours and 30 minutes&lt;/time&gt;</pre>
+
+<h2>9. &lt;figure&gt; & &lt;figcaption&gt; - Captioned Content</h2>
+<p>Self-contained content with captions.</p>
+<div class="example">
+    <figure>
+            <pre><code>function greet(name) {
+  return `Hello, ${name}!`;
+}</code></pre>
+        <figcaption>A simple JavaScript greeting function</figcaption>
+    </figure>
+</div>
+<pre>&lt;figure&gt;
+  &lt;img src="chart.jpg" alt="Sales chart"&gt;
+  &lt;figcaption&gt;Q2 2025 Sales Performance&lt;/figcaption&gt;
+&lt;/figure&gt;</pre>
+
+<h2>10. New Input Types</h2>
+<p>HTML5 introduced specialized input types with built-in validation.</p>
+<div class="example">
+    <label>Date:</label>
+    <input type="date"><br>
+    <label>Time:</label>
+    <input type="time"><br>
+    <label>Color:</label>
+    <input type="color" value="#667eea"><br>
+    <label>Range:</label>
+    <input type="range" min="0" max="100" value="50"><br>
+    <label>Email:</label>
+    <input type="email" placeholder="email@example.com">
+</div>
+<pre>&lt;input type="date"&gt;
+&lt;input type="time"&gt;
+&lt;input type="color"&gt;
+&lt;input type="range"&gt;
+&lt;input type="email"&gt;</pre>
+</body>
+</html>
