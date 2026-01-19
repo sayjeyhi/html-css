@@ -6,40 +6,77 @@
     <title>HTML5 Elements You Need</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            max-width: 900px;
             margin: 40px auto;
             padding: 20px;
             line-height: 1.6;
+            color: #2d3748;
+        }
+        select,
+        ::picker(select) {
+            appearance: base-select;
         }
 
         h1 {
             border-bottom: 2px solid #333;
             padding-bottom: 10px;
+            color: #1a202c;
         }
 
         h2 {
             margin-top: 40px;
-            color: #444;
+            color: #2d3748;
+            font-weight: 600;
         }
 
         .example {
-            background: #f4f4f4;
-            padding: 15px;
+            background: #f7fafc;
+            padding: 20px;
             margin: 15px 0;
-            border-left: 4px solid #333;
+            border-left: 4px solid #4299e1;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
         code {
-            background: #f4f4f4;
+            background: #edf2f7;
             padding: 2px 6px;
             border-radius: 3px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
         }
 
         pre {
-            background: #f4f4f4;
-            padding: 10px;
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
             overflow-x: auto;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        label {
+            font-weight: 500;
+            color: #4a5568;
+        }
+
+        input, select, button {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .use-case {
+            background: #fff5e6;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-left: 3px solid #ff9800;
+            font-size: 0.95em;
+            font-style: italic;
         }
     </style>
 </head>
@@ -48,151 +85,1003 @@
 
 <h2>1. &lt;dialog&gt; - Native Modal Windows</h2>
 <p>Create modal windows without JavaScript frameworks.</p>
+<div class="use-case"><strong>Real-world use case:</strong> User confirmation dialogs, form submissions, delete confirmations, cookie consent</div>
 <div class="example">
-    <dialog id="myDialog">
-        <h3>This is a Dialog</h3>
-        <p>No JavaScript frameworks required!</p>
-        <button onclick="this.closest('dialog').close()">Close</button>
+    <dialog id="deleteDialog" style="border: none; border-radius: 8px; padding: 0; max-width: 400px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
+        <div style="padding: 24px;">
+            <h3 style="margin-top: 0; color: #dc2626;">Delete Account</h3>
+            <p style="color: #4b5563; margin: 16px 0;">Are you sure you want to delete your account? This action cannot be undone. All your data, projects, and settings will be permanently removed.</p>
+            <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 24px;">
+                <button onclick="this.closest('dialog').close()" style="padding: 8px 16px; border: 1px solid #d1d5db; background: white; border-radius: 4px;">Cancel</button>
+                <button onclick="alert('Account deleted'); this.closest('dialog').close()" style="padding: 8px 16px; border: none; background: #dc2626; color: white; border-radius: 4px;">Delete Account</button>
+            </div>
+        </div>
     </dialog>
-    <button onclick="document.getElementById('myDialog').showModal()">Open Dialog</button>
+    <button onclick="document.getElementById('deleteDialog').showModal()" style="padding: 10px 20px; background: #dc2626; color: white; border: none; border-radius: 4px;">Delete Account</button>
 </div>
-<pre>&lt;dialog id="myDialog"&gt;
-  &lt;h3&gt;Dialog Title&lt;/h3&gt;
-  &lt;button onclick="this.closest('dialog').close()"&gt;Close&lt;/button&gt;
+<pre>&lt;dialog id="deleteDialog"&gt;
+  &lt;h3&gt;Delete Account&lt;/h3&gt;
+  &lt;p&gt;Are you sure? This action cannot be undone.&lt;/p&gt;
+  &lt;div&gt;
+    &lt;button onclick="this.closest('dialog').close()"&gt;Cancel&lt;/button&gt;
+    &lt;button onclick="confirmDelete()"&gt;Delete Account&lt;/button&gt;
+  &lt;/div&gt;
 &lt;/dialog&gt;
-&lt;button onclick="document.getElementById('myDialog').showModal()"&gt;Open&lt;/button&gt;</pre>
+&lt;button onclick="document.getElementById('deleteDialog').showModal()"&gt;Delete&lt;/button&gt;</pre>
 
 <h2>2. &lt;details&gt; & &lt;summary&gt; - Collapsible Sections</h2>
 <p>Expandable/collapsible content without JavaScript.</p>
+<div class="use-case"><strong>Real-world use case:</strong> FAQ sections, API documentation, product specifications, accordion menus</div>
 <div class="example">
-    <details>
-        <summary>Click to expand</summary>
-        <p>This content can be expanded and collapsed without any JavaScript!</p>
+    <details style="border: 1px solid #e2e8f0; border-radius: 4px; padding: 12px; margin-bottom: 8px;">
+        <summary style="cursor: pointer; font-weight: 600; color: #2d3748;">What payment methods do you accept?</summary>
+        <p style="margin-top: 12px; color: #4a5568;">We accept all major credit cards (Visa, MasterCard, American Express), PayPal, Apple Pay, Google Pay, and bank transfers for enterprise customers. All transactions are secured with 256-bit SSL encryption.</p>
+    </details>
+    <details style="border: 1px solid #e2e8f0; border-radius: 4px; padding: 12px; margin-bottom: 8px;">
+        <summary style="cursor: pointer; font-weight: 600; color: #2d3748;">What is your refund policy?</summary>
+        <p style="margin-top: 12px; color: #4a5568;">We offer a 30-day money-back guarantee. If you're not satisfied with your purchase, contact our support team within 30 days for a full refund. No questions asked.</p>
+    </details>
+    <details style="border: 1px solid #e2e8f0; border-radius: 4px; padding: 12px;">
+        <summary style="cursor: pointer; font-weight: 600; color: #2d3748;">Do you offer technical support?</summary>
+        <p style="margin-top: 12px; color: #4a5568;">Yes! All plans include email support with 24-hour response time. Pro and Enterprise plans get priority support with 2-hour response time and dedicated Slack channels.</p>
     </details>
 </div>
 <pre>&lt;details&gt;
-  &lt;summary&gt;Click to expand&lt;/summary&gt;
-  &lt;p&gt;Hidden content here&lt;/p&gt;
+  &lt;summary&gt;What payment methods do you accept?&lt;/summary&gt;
+  &lt;p&gt;We accept all major credit cards, PayPal, and bank transfers...&lt;/p&gt;
 &lt;/details&gt;</pre>
 
 <h2>3. &lt;datalist&gt; - Autocomplete for Inputs</h2>
 <p>Native autocomplete suggestions.</p>
+<div class="use-case"><strong>Real-world use case:</strong> Search suggestions, form autocomplete, skill selection, country/city pickers</div>
 <div class="example">
-    <input list="browsers" placeholder="Choose a browser">
-    <datalist id="browsers">
-        <option value="Chrome">
-        <option value="Firefox">
-        <option value="Safari">
-        <option value="Edge">
-    </datalist>
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 5px; font-weight: 500; color: #374151;">Primary Programming Language:</label>
+        <div style="position: relative;">
+            <input list="languages"
+                   placeholder="Start typing (e.g., JavaScript)..."
+                   style="width: 100%;
+                          padding: 12px 40px 12px 12px;
+                          border: 2px solid #e5e7eb;
+                          border-radius: 8px;
+                          font-size: 1em;
+                          transition: all 0.2s;
+                          background: white;"
+                   onfocus="this.style.borderColor='#4299e1'; this.style.boxShadow='0 0 0 3px rgba(66,153,225,0.1)'"
+                   onblur="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none'">
+            <span style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af; pointer-events: none;">▼</span>
+        </div>
+        <datalist id="languages">
+            <option value="JavaScript" label="Popular - Full-stack development">
+            <option value="TypeScript" label="JavaScript with static typing">
+            <option value="Python" label="Popular - Data science & AI">
+            <option value="Java" label="Enterprise & Android">
+            <option value="C#" label="Microsoft & Game development">
+            <option value="Go" label="Google - Cloud & DevOps">
+            <option value="Rust" label="Systems programming">
+            <option value="PHP" label="Web backend">
+            <option value="Ruby" label="Web development">
+            <option value="Swift" label="iOS & macOS">
+            <option value="Kotlin" label="Modern Android">
+        </datalist>
+        <small style="color: #6b7280; display: block; margin-top: 5px;">💡 Tip: Start typing to see suggestions</small>
+    </div>
+    <div>
+        <label style="display: block; margin-bottom: 5px; font-weight: 500; color: #374151;">Country:</label>
+        <div style="position: relative;">
+            <input list="countries"
+                   placeholder="Select or type country name..."
+                   style="width: 100%;
+                          padding: 12px 40px 12px 12px;
+                          border: 2px solid #e5e7eb;
+                          border-radius: 8px;
+                          font-size: 1em;
+                          transition: all 0.2s;
+                          background: white;"
+                   onfocus="this.style.borderColor='#4299e1'; this.style.boxShadow='0 0 0 3px rgba(66,153,225,0.1)'"
+                   onblur="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none'">
+            <span style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af; pointer-events: none;">🌍</span>
+        </div>
+        <datalist id="countries">
+            <option value="United States" label="🇺🇸 USA">
+            <option value="United Kingdom" label="🇬🇧 UK">
+            <option value="Canada" label="🇨🇦">
+            <option value="Germany" label="🇩🇪">
+            <option value="France" label="🇫🇷">
+            <option value="Japan" label="🇯🇵">
+            <option value="Australia" label="🇦🇺">
+            <option value="Netherlands" label="🇳🇱">
+            <option value="Spain" label="🇪🇸">
+            <option value="Italy" label="🇮🇹">
+            <option value="Brazil" label="🇧🇷">
+            <option value="India" label="🇮🇳">
+        </datalist>
+        <small style="color: #6b7280; display: block; margin-top: 5px;">🔍 Type to filter from 12+ countries</small>
+    </div>
 </div>
-<pre>&lt;input list="browsers"&gt;
-&lt;datalist id="browsers"&gt;
-  &lt;option value="Chrome"&gt;
-  &lt;option value="Firefox"&gt;
+<pre>&lt;input list="languages"
+       placeholder="Start typing..."
+       style="padding: 12px;
+              border: 2px solid #e5e7eb;
+              border-radius: 8px;"
+       onfocus="this.style.borderColor='#4299e1'"&gt;
+
+&lt;datalist id="languages"&gt;
+  &lt;option value="JavaScript" label="Full-stack"&gt;
+  &lt;option value="TypeScript" label="Static typing"&gt;
+  &lt;option value="Python" label="Data science"&gt;
 &lt;/datalist&gt;</pre>
 
 <h2>4. &lt;meter&gt; - Visual Value Gauges</h2>
 <p>Display measurements within a range.</p>
+<div class="use-case"><strong>Real-world use case:</strong> Disk usage, memory consumption, password strength, battery level, rating systems</div>
 <div class="example">
-    <label>Disk Usage:</label>
-    <meter value="75" min="0" max="100" low="30" high="70" optimum="0">75%</meter>
-    <br>
-    <label>Battery:</label>
-    <meter value="85" min="0" max="100" low="20" high="60" optimum="100">85%</meter>
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 5px;">Server Disk Usage (512 GB / 1 TB):</label>
+        <meter value="512" min="0" max="1024" low="300" high="800" optimum="0" style="width: 100%; height: 25px;">512 GB</meter>
+        <small style="color: #6b7280;">Warning: High disk usage detected</small>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 5px;">Memory Usage (4.2 GB / 16 GB):</label>
+        <meter value="4.2" min="0" max="16" low="5" high="12" optimum="0" style="width: 100%; height: 25px;">4.2 GB</meter>
+        <small style="color: #6b7280;">Normal operating range</small>
+    </div>
+    <div>
+        <label style="display: block; margin-bottom: 5px;">Password Strength:</label>
+        <meter value="8" min="0" max="10" low="3" high="7" optimum="10" style="width: 100%; height: 25px;">Strong</meter>
+        <small style="color: #10b981;">Strong password</small>
+    </div>
 </div>
-<pre>&lt;meter value="75" min="0" max="100" low="30" high="70" optimum="0"&gt;75%&lt;/meter&gt;</pre>
+<pre>&lt;meter value="512" min="0" max="1024"
+       low="300" high="800" optimum="0"&gt;
+  512 GB
+&lt;/meter&gt;</pre>
 
 <h2>5. &lt;progress&gt; - Progress Bars</h2>
 <p>Show completion progress.</p>
+<div class="use-case"><strong>Real-world use case:</strong> File uploads, form submissions, data processing, installation progress</div>
 <div class="example">
-    <label>Upload Progress:</label>
-    <progress value="70" max="100">70%</progress>
+    <div style="margin-bottom: 15px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+            <label style="font-weight: 500;">project-files.zip (250 MB)</label>
+            <span style="color: #6b7280;">73%</span>
+        </div>
+        <progress value="73" max="100" style="width: 100%; height: 20px;">73%</progress>
+        <small style="color: #6b7280;">Uploading... 183 MB of 250 MB</small>
+    </div>
+    <div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+            <label style="font-weight: 500;">database-backup.sql (1.2 GB)</label>
+            <span style="color: #10b981;">Complete</span>
+        </div>
+        <progress value="100" max="100" style="width: 100%; height: 20px;">100%</progress>
+        <small style="color: #10b981;">Upload completed successfully</small>
+    </div>
 </div>
-<pre>&lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;</pre>
+<pre>&lt;progress value="73" max="100"&gt;73%&lt;/progress&gt;</pre>
 
 <h2>6. &lt;output&gt; - Dynamic Calculation Results</h2>
 <p>Display calculation results with semantic meaning.</p>
+<div class="use-case"><strong>Real-world use case:</strong> Loan calculators, tip calculators, currency converters, tax calculators, shopping cart totals</div>
 <div class="example">
-    <form oninput="result.value = parseInt(a.value) + parseInt(b.value)">
-        <input type="number" id="a" value="5"> +
-        <input type="number" id="b" value="10"> =
-        <output name="result" for="a b">15</output>
+    <form oninput="
+        const subtotal = parseFloat(billAmount.value) || 0;
+        const tipPercent = parseFloat(tipPercentage.value) || 15;
+        const tipAmount = subtotal * (tipPercent / 100);
+        const totalAmount = subtotal + tipAmount;
+        tip.value = '$' + tipAmount.toFixed(2);
+        total.value = '$' + totalAmount.toFixed(2);
+    " style="background: white; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
+        <h3 style="margin-top: 0;">Tip Calculator</h3>
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px;">Bill Amount:</label>
+            <input type="number" id="billAmount" value="50.00" step="0.01" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 5px;">Tip Percentage: <span id="tipDisplay">15%</span></label>
+            <input type="range" id="tipPercentage" value="15" min="0" max="30" oninput="document.getElementById('tipDisplay').textContent = this.value + '%'" style="width: 100%;">
+        </div>
+        <div style="background: #f7fafc; padding: 15px; border-radius: 4px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <span style="font-weight: 500;">Tip Amount:</span>
+                <output name="tip" for="billAmount tipPercentage" style="font-size: 1.1em; color: #4299e1;">$7.50</output>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding-top: 10px; border-top: 2px solid #e2e8f0;">
+                <span style="font-weight: 600;">Total:</span>
+                <output name="total" for="billAmount tipPercentage" style="font-size: 1.3em; font-weight: 600; color: #2d3748;">$57.50</output>
+            </div>
+        </div>
     </form>
 </div>
-<pre>&lt;form oninput="result.value = parseInt(a.value) + parseInt(b.value)"&gt;
-  &lt;input type="number" id="a" value="5"&gt; +
-  &lt;input type="number" id="b" value="10"&gt; =
-  &lt;output name="result" for="a b"&gt;15&lt;/output&gt;
+<pre>&lt;form oninput="total.value = subtotal * (1 + tipPercent/100)"&gt;
+  &lt;input type="number" id="subtotal" value="50"&gt;
+  &lt;input type="range" id="tipPercent" value="15"&gt;
+  &lt;output name="total"&gt;$57.50&lt;/output&gt;
 &lt;/form&gt;</pre>
 
 <h2>7. &lt;mark&gt; - Highlighted Text</h2>
 <p>Semantic highlighting for search results or emphasis.</p>
+<div class="use-case"><strong>Real-world use case:</strong> Search results highlighting, document annotations, text emphasis, code review comments</div>
 <div class="example">
-    <p>The <mark>quick brown fox</mark> jumps over the lazy dog.</p>
+    <div style="background: white; padding: 15px; border: 1px solid #e2e8f0; border-radius: 4px; margin-bottom: 10px;">
+        <h4 style="margin-top: 0; margin-bottom: 5px;">Getting Started with <mark style="background: #fef3c7; padding: 2px 4px;">React Hooks</mark></h4>
+        <p style="color: #6b7280; margin: 5px 0; font-size: 0.9em;">www.example.com/blog/react-hooks</p>
+        <p style="margin: 10px 0 0 0;">Learn how to use <mark style="background: #fef3c7; padding: 2px 4px;">React Hooks</mark> to manage state and side effects in functional components. This comprehensive guide covers useState, useEffect, and custom <mark style="background: #fef3c7; padding: 2px 4px;">hooks</mark>...</p>
+    </div>
+    <div style="background: white; padding: 15px; border: 1px solid #e2e8f0; border-radius: 4px;">
+        <h4 style="margin-top: 0; margin-bottom: 5px;">Advanced <mark style="background: #fef3c7; padding: 2px 4px;">React Hooks</mark> Patterns</h4>
+        <p style="color: #6b7280; margin: 5px 0; font-size: 0.9em;">www.docs.example.com/patterns</p>
+        <p style="margin: 10px 0 0 0;">Explore advanced patterns for <mark style="background: #fef3c7; padding: 2px 4px;">React Hooks</mark> including useReducer, useContext, and creating reusable custom <mark style="background: #fef3c7; padding: 2px 4px;">hooks</mark> for your applications...</p>
+    </div>
 </div>
-<pre>&lt;p&gt;The &lt;mark&gt;quick brown fox&lt;/mark&gt; jumps over the lazy dog.&lt;/p&gt;</pre>
+<pre>&lt;p&gt;Learn how to use &lt;mark&gt;React Hooks&lt;/mark&gt; in your apps.&lt;/p&gt;</pre>
 
 <h2>8. &lt;time&gt; - Dates and Times</h2>
 <p>Machine-readable dates with human-friendly display.</p>
+<div class="use-case"><strong>Real-world use case:</strong> Blog posts, event listings, comment timestamps, scheduling, activity feeds</div>
 <div class="example">
-    <!-- Just a date -->
-    <p>Article published: <time datetime="2025-05-20">May 20, 2025</time></p>
+    <article style="background: white; padding: 15px; border: 1px solid #e2e8f0; border-radius: 4px; margin-bottom: 15px;">
+        <h4 style="margin-top: 0;">Understanding Modern Web Performance</h4>
+        <div style="color: #6b7280; font-size: 0.9em; margin-bottom: 10px;">
+            Published <time datetime="2025-01-15T10:30:00">January 15, 2025 at 10:30 AM</time> by Sarah Johnson
+        </div>
+        <p style="margin: 0; color: #4a5568;">Learn the latest techniques for optimizing web performance in 2025...</p>
+    </article>
 
-    <!-- Date and time -->
-    <p>Event starts: <time datetime="2025-05-20T14:30:00">2:30 PM on May 20, 2025</time></p>
-
-    <!-- Just a time -->
-    <p>Store opens: <time datetime="09:00:00">9:00 AM</time></p>
-
-    <!-- A duration -->
-    <p>Flight time: <time datetime="PT2H30M">2 hours and 30 minutes</time></p>
+    <div style="background: white; padding: 15px; border: 1px solid #e2e8f0; border-radius: 4px; margin-bottom: 15px;">
+        <h4 style="margin: 0 0 10px 0;">Upcoming Webinar</h4>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="background: #4299e1; color: white; padding: 10px; border-radius: 4px; text-align: center; min-width: 60px;">
+                <div style="font-size: 1.5em; font-weight: bold;">20</div>
+                <div style="font-size: 0.8em;">MAY</div>
+            </div>
+            <div>
+                <div style="font-weight: 600;">Advanced React Patterns</div>
+                <div style="color: #6b7280; font-size: 0.9em;">
+                    <time datetime="2025-05-20T14:00:00">May 20, 2025 at 2:00 PM EST</time>
+                </div>
+                <div style="color: #6b7280; font-size: 0.9em;">
+                    Duration: <time datetime="PT1H30M">1 hour 30 minutes</time>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<pre>&lt;!-- Just a date --&gt;
-&lt;time datetime="2025-05-20"&gt;May 20, 2025&lt;/time&gt;
-
-&lt;!-- Date and time --&gt;
-&lt;time datetime="2025-05-20T14:30:00"&gt;2:30 PM on May 20, 2025&lt;/time&gt;
-
-&lt;!-- Just a time --&gt;
-&lt;time datetime="14:30:00"&gt;2:30 PM&lt;/time&gt;
-
-&lt;!-- A duration --&gt;
-&lt;time datetime="PT2H30M"&gt;2 hours and 30 minutes&lt;/time&gt;</pre>
+<pre>&lt;time datetime="2025-05-20T14:00:00"&gt;May 20, 2025 at 2:00 PM&lt;/time&gt;
+&lt;time datetime="PT1H30M"&gt;1 hour 30 minutes&lt;/time&gt;</pre>
 
 <h2>9. &lt;figure&gt; & &lt;figcaption&gt; - Captioned Content</h2>
 <p>Self-contained content with captions.</p>
+<div class="use-case"><strong>Real-world use case:</strong> Image galleries, code snippets, charts/graphs, diagrams, infographics</div>
 <div class="example">
-    <figure>
-            <pre><code>function greet(name) {
-  return `Hello, ${name}!`;
-}</code></pre>
-        <figcaption>A simple JavaScript greeting function</figcaption>
+    <figure style="margin: 0; background: white; padding: 15px; border: 1px solid #e2e8f0; border-radius: 4px;">
+        <div style="background: #2d3748; color: #e2e8f0; padding: 15px; border-radius: 4px; font-family: 'Monaco', monospace; font-size: 0.9em;">
+            <pre style="margin: 0; padding: 0; background: none;"><code>// Authentication middleware for Express.js
+const authenticate = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) throw new Error('No token provided');
+
+    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ error: 'Unauthorized' });
+  }
+};</code></pre>
+        </div>
+        <figcaption style="margin-top: 10px; color: #6b7280; font-size: 0.9em; font-style: italic;">
+            Example 1: JWT authentication middleware implementation for securing API endpoints
+        </figcaption>
+    </figure>
+
+    <figure style="margin: 20px 0 0 0; background: white; padding: 15px; border: 1px solid #e2e8f0; border-radius: 4px;">
+        <div style="background: #f7fafc; padding: 20px; border-radius: 4px; text-align: center;">
+            <div style="display: flex; justify-content: space-around; align-items: flex-end; height: 150px;">
+                <div style="background: #4299e1; width: 60px; height: 80%; display: flex; align-items: flex-end; justify-content: center; color: white; font-weight: bold;">Q1</div>
+                <div style="background: #48bb78; width: 60px; height: 95%; display: flex; align-items: flex-end; justify-content: center; color: white; font-weight: bold;">Q2</div>
+                <div style="background: #ed8936; width: 60px; height: 70%; display: flex; align-items: flex-end; justify-content: center; color: white; font-weight: bold;">Q3</div>
+                <div style="background: #9f7aea; width: 60px; height: 100%; display: flex; align-items: flex-end; justify-content: center; color: white; font-weight: bold;">Q4</div>
+            </div>
+        </div>
+        <figcaption style="margin-top: 10px; color: #6b7280; font-size: 0.9em; font-style: italic;">
+            Figure 2: Quarterly revenue growth for 2024 showing steady increase across all quarters
+        </figcaption>
     </figure>
 </div>
 <pre>&lt;figure&gt;
-  &lt;img src="chart.jpg" alt="Sales chart"&gt;
-  &lt;figcaption&gt;Q2 2025 Sales Performance&lt;/figcaption&gt;
+  &lt;img src="sales-chart.png" alt="Q4 Sales"&gt;
+  &lt;figcaption&gt;Figure 1: Q4 2024 sales performance&lt;/figcaption&gt;
 &lt;/figure&gt;</pre>
 
 <h2>10. New Input Types</h2>
 <p>HTML5 introduced specialized input types with built-in validation.</p>
+<div class="use-case"><strong>Real-world use case:</strong> Forms, booking systems, user preferences, scheduling interfaces, color pickers</div>
 <div class="example">
-    <label>Date:</label>
-    <input type="date"><br>
-    <label>Time:</label>
-    <input type="time"><br>
-    <label>Color:</label>
-    <input type="color" value="#667eea"><br>
-    <label>Range:</label>
-    <input type="range" min="0" max="100" value="50"><br>
-    <label>Email:</label>
-    <input type="email" placeholder="email@example.com">
+    <form style="background: white; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
+        <h3 style="margin-top: 0;">Event Registration Form</h3>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px;">Email Address:</label>
+            <input type="email" placeholder="john.doe@example.com" required style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+            <div>
+                <label style="display: block; margin-bottom: 5px;">Event Date:</label>
+                <input type="date" value="2025-06-15" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+            </div>
+            <div>
+                <label style="display: block; margin-bottom: 5px;">Preferred Time:</label>
+                <input type="time" value="14:30" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+            </div>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px;">Number of Attendees:</label>
+            <input type="number" value="2" min="1" max="10" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px;">Brand Color Preference:</label>
+            <input type="color" value="#4299e1" style="width: 100px; height: 40px; border: 1px solid #d1d5db; border-radius: 4px;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px;">Budget Range: $<span id="budgetValue">5000</span></label>
+            <input type="range" min="1000" max="10000" step="500" value="5000"
+                   oninput="document.getElementById('budgetValue').textContent = this.value"
+                   style="width: 100%;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.8em; color: #6b7280;">
+                <span>$1,000</span>
+                <span>$10,000</span>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px;">Website URL:</label>
+            <input type="url" placeholder="https://example.com" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+        </div>
+
+        <button type="submit" style="background: #4299e1; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-weight: 600;">Register for Event</button>
+    </form>
 </div>
-<pre>&lt;input type="date"&gt;
+<pre>&lt;input type="email" placeholder="john@example.com" required&gt;
+&lt;input type="date"&gt;
 &lt;input type="time"&gt;
+&lt;input type="number" min="1" max="10"&gt;
 &lt;input type="color"&gt;
-&lt;input type="range"&gt;
-&lt;input type="email"&gt;</pre>
+&lt;input type="range" min="0" max="100"&gt;
+&lt;input type="url"&gt;</pre>
+
+<h1 style="margin-top: 60px;">Modern CSS Features</h1>
+
+<h2>1. line-clamp - Truncate Text</h2>
+<p>Limit text to a specific number of lines with ellipsis.</p>
+<div class="use-case"><strong>Real-world use case:</strong> Blog post previews, product descriptions, comment sections, news feeds</div>
+<div class="example">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+        <div style="background: white; padding: 15px; border: 1px solid #e2e8f0; border-radius: 8px;">
+            <h4 style="margin-top: 0;">Introduction to TypeScript</h4>
+            <p style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; color: #4a5568; margin: 10px 0;">
+                TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale. It adds optional static typing to JavaScript, which can help catch errors early in the development process. TypeScript code is transformed into JavaScript code via the TypeScript compiler, making it compatible with any browser or JavaScript engine.
+            </p>
+            <a href="#" style="color: #4299e1; text-decoration: none; font-weight: 500;">Read more →</a>
+        </div>
+
+        <div style="background: white; padding: 15px; border: 1px solid #e2e8f0; border-radius: 8px;">
+            <h4 style="margin-top: 0;">Mastering CSS Grid</h4>
+            <p style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; color: #4a5568; margin: 10px 0;">
+                CSS Grid Layout is a two-dimensional layout system for the web. It lets you lay content out in rows and columns, making it much easier to design complex responsive layouts without having to use floats or positioning hacks. Grid is perfect for creating page layouts and UI components.
+            </p>
+            <a href="#" style="color: #4299e1; text-decoration: none; font-weight: 500;">Read more →</a>
+        </div>
+    </div>
+</div>
+<pre>.preview-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}</pre>
+
+<h2>2. clip-path - Custom Shapes</h2>
+<p>Create custom shapes without images.</p>
+<div class="use-case"><strong>Real-world use case:</strong> Notification badges, decorative elements, image masks, geometric designs</div>
+<div class="example">
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: center;">
+        <div style="position: relative;">
+            <div style="width: 120px; height: 120px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); display: flex; align-items: center; justify-content: center;">
+                <span style="color: white; font-weight: bold; font-size: 1.5em;">SALE</span>
+            </div>
+            <small style="display: block; text-align: center; margin-top: 5px;">Diamond badge</small>
+        </div>
+
+        <div style="position: relative;">
+            <div style="width: 60px; height: 60px; background: #10b981; clip-path: circle(50%); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                12
+            </div>
+            <small style="display: block; text-align: center; margin-top: 5px;">Notification</small>
+        </div>
+
+        <div style="position: relative;">
+            <div style="width: 150px; height: 80px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%); display: flex; align-items: center; justify-content: center;">
+                <span style="color: white; font-weight: bold;">-30% OFF</span>
+            </div>
+            <small style="display: block; text-align: center; margin-top: 5px;">Slanted banner</small>
+        </div>
+
+        <div style="position: relative;">
+            <div style="width: 100px; height: 100px; background: #ff6b6b; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); display: flex; align-items: center; justify-content: center;">
+                <span style="color: white; font-weight: bold; font-size: 1.2em;">★</span>
+            </div>
+            <small style="display: block; text-align: center; margin-top: 5px;">Star shape</small>
+        </div>
+    </div>
+</div>
+<pre>.badge {
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+.notification {
+  clip-path: circle(50%);
+}
+.banner {
+  clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+}</pre>
+
+<h2>3. scroll-snap-type - Snap Scrolling</h2>
+<p>Create carousel-like scrolling behavior.</p>
+<div class="use-case"><strong>Real-world use case:</strong> Image galleries, product carousels, story viewers, horizontal scrolling sections</div>
+<div class="example">
+    <h4 style="margin-top: 0;">Featured Products</h4>
+    <div style="display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px; padding: 10px 0; scrollbar-width: thin;">
+        <div style="min-width: 280px; flex-shrink: 0; scroll-snap-align: start; background: white; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+            <div style="height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 2em;">📱</div>
+            <div style="padding: 15px;">
+                <h4 style="margin: 0 0 5px 0;">Premium Wireless Headphones</h4>
+                <p style="color: #6b7280; margin: 5px 0; font-size: 0.9em;">High-quality audio with active noise cancellation</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                    <span style="font-size: 1.3em; font-weight: bold; color: #4299e1;">$299</span>
+                    <button style="background: #4299e1; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="min-width: 280px; flex-shrink: 0; scroll-snap-align: start; background: white; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+            <div style="height: 200px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 2em;">⌚</div>
+            <div style="padding: 15px;">
+                <h4 style="margin: 0 0 5px 0;">Smart Fitness Watch</h4>
+                <p style="color: #6b7280; margin: 5px 0; font-size: 0.9em;">Track your health and fitness goals 24/7</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                    <span style="font-size: 1.3em; font-weight: bold; color: #4299e1;">$199</span>
+                    <button style="background: #4299e1; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="min-width: 280px; flex-shrink: 0; scroll-snap-align: start; background: white; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+            <div style="height: 200px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 2em;">💻</div>
+            <div style="padding: 15px;">
+                <h4 style="margin: 0 0 5px 0;">Ultra-Thin Laptop</h4>
+                <p style="color: #6b7280; margin: 5px 0; font-size: 0.9em;">Powerful performance in a sleek design</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                    <span style="font-size: 1.3em; font-weight: bold; color: #4299e1;">$1,299</span>
+                    <button style="background: #4299e1; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="min-width: 280px; flex-shrink: 0; scroll-snap-align: start; background: white; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+            <div style="height: 200px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 2em;">📷</div>
+            <div style="padding: 15px;">
+                <h4 style="margin: 0 0 5px 0;">4K Action Camera</h4>
+                <p style="color: #6b7280; margin: 5px 0; font-size: 0.9em;">Capture your adventures in stunning detail</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                    <span style="font-size: 1.3em; font-weight: bold; color: #4299e1;">$399</span>
+                    <button style="background: #4299e1; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <small style="color: #6b7280;">Scroll horizontally to see more products →</small>
+</div>
+<pre>.carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 15px;
+}
+.carousel-item {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}</pre>
+
+<h2>4. Anchor Positioning</h2>
+<p>Position elements relative to other elements (CSS anchor positioning).</p>
+<div class="use-case"><strong>Real-world use case:</strong> Tooltips, popovers, dropdown menus, context menus, info bubbles</div>
+<div class="example">
+    <div style="background: white; padding: 30px; border: 1px solid #e2e8f0; border-radius: 8px; text-align: center; position: relative;">
+        <p style="margin-bottom: 20px;">Hover over the buttons below to see tooltips:</p>
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <div style="position: relative;">
+                <button id="save-btn" style="padding: 10px 20px; background: #4299e1; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">Save</button>
+                <div id="save-tooltip" style="position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #1a202c; color: white; padding: 8px 12px; border-radius: 6px; white-space: nowrap; display: none; font-size: 0.9em; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
+                    Save your changes (Ctrl+S)
+                    <div style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #1a202c;"></div>
+                </div>
+            </div>
+
+            <div style="position: relative;">
+                <button id="delete-btn" style="padding: 10px 20px; background: #f56565; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">Delete</button>
+                <div id="delete-tooltip" style="position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #1a202c; color: white; padding: 8px 12px; border-radius: 6px; white-space: nowrap; display: none; font-size: 0.9em; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
+                    Delete permanently (⌘+D)
+                    <div style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #1a202c;"></div>
+                </div>
+            </div>
+
+            <div style="position: relative;">
+                <button id="share-btn" style="padding: 10px 20px; background: #48bb78; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">Share</button>
+                <div id="share-tooltip" style="position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #1a202c; color: white; padding: 8px 12px; border-radius: 6px; white-space: nowrap; display: none; font-size: 0.9em; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
+                    Share with team members
+                    <div style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #1a202c;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<pre>/* Traditional approach with position: absolute */
+.button-wrapper {
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Future CSS Anchor Positioning API */
+.button {
+  anchor-name: --button-anchor;
+}
+
+.tooltip {
+  position-anchor: --button-anchor;
+  position: absolute;
+  bottom: anchor(top);
+  left: anchor(center);
+}</pre>
+
+<h2>5. aspect-ratio - Maintain Proportions</h2>
+<p>Set aspect ratio without padding hacks.</p>
+<div class="use-case"><strong>Real-world use case:</strong> Video players, image containers, card layouts, responsive iframes</div>
+<div class="example">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+            <div style="aspect-ratio: 16/9; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 2em;">▶</div>
+            <div style="padding: 10px;">
+                <strong>Video Tutorial</strong>
+                <p style="margin: 5px 0 0 0; font-size: 0.9em; color: #6b7280;">16:9 aspect ratio</p>
+            </div>
+        </div>
+        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+            <div style="aspect-ratio: 1/1; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 2em;">📷</div>
+            <div style="padding: 10px;">
+                <strong>Instagram Post</strong>
+                <p style="margin: 5px 0 0 0; font-size: 0.9em; color: #6b7280;">1:1 square ratio</p>
+            </div>
+        </div>
+        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+            <div style="aspect-ratio: 4/3; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 2em;">🖼️</div>
+            <div style="padding: 10px;">
+                <strong>Classic Photo</strong>
+                <p style="margin: 5px 0 0 0; font-size: 0.9em; color: #6b7280;">4:3 aspect ratio</p>
+            </div>
+        </div>
+    </div>
+</div>
+<pre>.video-container {
+  aspect-ratio: 16/9;
+}
+.square-image {
+  aspect-ratio: 1/1;
+}
+.classic-photo {
+  aspect-ratio: 4/3;
+}</pre>
+
+<h2>6. gap - Spacing Between Items</h2>
+<p>Add spacing in flex and grid layouts.</p>
+<div class="use-case"><strong>Real-world use case:</strong> Navigation menus, card grids, button groups, form layouts</div>
+<div class="example">
+    <div style="margin-bottom: 20px;">
+        <h4 style="margin-top: 0;">Navigation Menu (Flex with gap)</h4>
+        <nav style="display: flex; gap: 5px; background: white; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <a href="#" style="padding: 8px 16px; background: #4299e1; color: white; text-decoration: none; border-radius: 4px; font-weight: 500;">Home</a>
+            <a href="#" style="padding: 8px 16px; background: #f7fafc; color: #4a5568; text-decoration: none; border-radius: 4px;">Products</a>
+            <a href="#" style="padding: 8px 16px; background: #f7fafc; color: #4a5568; text-decoration: none; border-radius: 4px;">About</a>
+            <a href="#" style="padding: 8px 16px; background: #f7fafc; color: #4a5568; text-decoration: none; border-radius: 4px;">Contact</a>
+        </nav>
+    </div>
+
+    <div>
+        <h4 style="margin-top: 0;">Product Grid (Grid with gap)</h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px;">
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; text-align: center;">
+                <div style="font-size: 2em; margin-bottom: 10px;">💼</div>
+                <div style="font-weight: 600;">Business</div>
+            </div>
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; text-align: center;">
+                <div style="font-size: 2em; margin-bottom: 10px;">🎨</div>
+                <div style="font-weight: 600;">Design</div>
+            </div>
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; text-align: center;">
+                <div style="font-size: 2em; margin-bottom: 10px;">💻</div>
+                <div style="font-weight: 600;">Tech</div>
+            </div>
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; text-align: center;">
+                <div style="font-size: 2em; margin-bottom: 10px;">📱</div>
+                <div style="font-weight: 600;">Mobile</div>
+            </div>
+        </div>
+    </div>
+</div>
+<pre>.nav {
+  display: flex;
+  gap: 5px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+}</pre>
+
+<h2>7. Custom Select Styling (Traditional)</h2>
+<p>Style select elements with appearance property.</p>
+<div class="use-case"><strong>Real-world use case:</strong> Form inputs, filter dropdowns, settings panels, location selectors</div>
+<div class="example">
+    <form style="background: white; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
+        <h4 style="margin-top: 0;">Customize Your Plan</h4>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 500;">Select Plan:</label>
+            <select style="width: 100%; padding: 10px 35px 10px 12px; border: 2px solid #d1d5db; border-radius: 6px; background: white; appearance: none; background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%234a5568%22 stroke-width=%222%22%3E%3Cpolyline points=%226 9 12 15 18 9%22%3E%3C/polyline%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 10px center; background-size: 18px; font-size: 1em; cursor: pointer;">
+                <option value="free">Free - $0/month</option>
+                <option value="starter">Starter - $9/month</option>
+                <option value="pro" selected>Pro - $29/month (Most Popular)</option>
+                <option value="enterprise">Enterprise - $99/month</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 500;">Billing Cycle:</label>
+            <select style="width: 100%; padding: 10px 35px 10px 12px; border: 2px solid #d1d5db; border-radius: 6px; background: white; appearance: none; background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%234a5568%22 stroke-width=%222%22%3E%3Cpolyline points=%226 9 12 15 18 9%22%3E%3C/polyline%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 10px center; background-size: 18px; font-size: 1em; cursor: pointer;">
+                <option value="monthly">Monthly</option>
+                <option value="annual" selected>Annual (Save 20%)</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 500;">Region:</label>
+            <select style="width: 100%; padding: 10px 35px 10px 12px; border: 2px solid #d1d5db; border-radius: 6px; background: white; appearance: none; background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%234a5568%22 stroke-width=%222%22%3E%3Cpolyline points=%226 9 12 15 18 9%22%3E%3C/polyline%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 10px center; background-size: 18px; font-size: 1em; cursor: pointer;">
+                <option value="us-east">US East (N. Virginia)</option>
+                <option value="us-west">US West (Oregon)</option>
+                <option value="eu-west">Europe (Ireland)</option>
+                <option value="ap-southeast">Asia Pacific (Singapore)</option>
+            </select>
+        </div>
+
+        <button type="submit" style="width: 100%; background: #4299e1; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: 600; cursor: pointer;">Continue to Payment</button>
+    </form>
+</div>
+<pre>select {
+  appearance: none;
+  background-image: url('data:image/svg+xml,...');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 35px;
+}</pre>
+
+<h2>7b. Customizable Select (Modern - Experimental) 🆕</h2>
+<p>Fully customizable select with rich content using <code>appearance: base-select</code>.</p>
+<div class="use-case"><strong>Real-world use case:</strong> Payment method selectors, product variants, theme pickers, emoji selectors</div>
+<div style="background: #fffbeb; border: 1px solid #fbbf24; padding: 10px 15px; margin: 10px 0; border-radius: 4px;">
+    ⚠️ <strong>Experimental Feature:</strong> Limited browser support. Uses <code>appearance: base-select</code> and new pseudo-elements.
+</div>
+<div class="example">
+    <style>
+        /* Opt-in to customizable select */
+        #payment-select,
+        #payment-select::picker(select) {
+            appearance: base-select;
+        }
+
+        #payment-select {
+            width: 100%;
+            border: 2px solid #e5e7eb;
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #payment-select:hover,
+        #payment-select:focus {
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+        }
+
+        /* Animate the picker icon */
+        #payment-select::picker-icon {
+            color: #6b7280;
+            transition: 0.3s rotate;
+            content: "▼";
+        }
+
+        #payment-select:open::picker-icon {
+            rotate: 180deg;
+        }
+
+        /* Style options */
+        #payment-select option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            background: white;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        #payment-select option:hover,
+        #payment-select option:focus {
+            background: #f0f9ff;
+        }
+
+        #payment-select option:checked {
+            background: #dbeafe;
+            font-weight: 600;
+            border-color: #4299e1;
+        }
+
+        /* Custom checkmark */
+        #payment-select option::checkmark {
+            margin-left: auto;
+            content: "✓";
+            color: #4299e1;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* Animate dropdown */
+        #payment-select::picker(select) {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s allow-discrete;
+        }
+
+        #payment-select::picker(select):popover-open {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @starting-style {
+            #payment-select::picker(select):popover-open {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
+
+        .payment-icon {
+            font-size: 1.5em;
+            min-width: 30px;
+        }
+
+        .payment-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .payment-name {
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .payment-desc {
+            font-size: 0.85em;
+            color: #6b7280;
+        }
+    </style>
+
+    <div style="background: white; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
+        <h4 style="margin-top: 0;">Payment Method</h4>
+        <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #374151;">
+            Choose how you'd like to pay:
+        </label>
+
+        <select id="payment-select">
+            <button type="button">
+                <selectedcontent></selectedcontent>
+            </button>
+
+            <option value="">
+                <span class="payment-icon">💳</span>
+                <div class="payment-details">
+                    <span class="payment-name">Select a payment method</span>
+                </div>
+            </option>
+
+            <option value="credit-card" selected>
+                <span class="payment-icon">💳</span>
+                <div class="payment-details">
+                    <span class="payment-name">Credit Card</span>
+                    <span class="payment-desc">Visa, Mastercard, Amex</span>
+                </div>
+            </option>
+
+            <option value="paypal">
+                <span class="payment-icon">🅿️</span>
+                <div class="payment-details">
+                    <span class="payment-name">PayPal</span>
+                    <span class="payment-desc">Fast & secure checkout</span>
+                </div>
+            </option>
+
+            <option value="apple-pay">
+                <span class="payment-icon">🍎</span>
+                <div class="payment-details">
+                    <span class="payment-name">Apple Pay</span>
+                    <span class="payment-desc">One-click payment</span>
+                </div>
+            </option>
+
+            <option value="google-pay">
+                <span class="payment-icon">🔵</span>
+                <div class="payment-details">
+                    <span class="payment-name">Google Pay</span>
+                    <span class="payment-desc">Simple & fast</span>
+                </div>
+            </option>
+
+            <option value="bank-transfer">
+                <span class="payment-icon">🏦</span>
+                <div class="payment-details">
+                    <span class="payment-name">Bank Transfer</span>
+                    <span class="payment-desc">Direct debit</span>
+                </div>
+            </option>
+
+            <option value="crypto">
+                <span class="payment-icon">₿</span>
+                <div class="payment-details">
+                    <span class="payment-name">Cryptocurrency</span>
+                    <span class="payment-desc">BTC, ETH, USDT</span>
+                </div>
+            </option>
+        </select>
+
+        <small style="display: block; margin-top: 8px; color: #6b7280;">
+            🔒 All transactions are secured with 256-bit SSL encryption
+        </small>
+    </div>
+</div>
+<pre>&lt;!-- HTML with rich content --&gt;
+&lt;select id="payment-select"&gt;
+  &lt;button type="button"&gt;
+    &lt;selectedcontent&gt;&lt;/selectedcontent&gt;
+  &lt;/button&gt;
+
+  &lt;option value="credit-card"&gt;
+    &lt;span class="icon"&gt;💳&lt;/span&gt;
+    &lt;div&gt;
+      &lt;span class="name"&gt;Credit Card&lt;/span&gt;
+      &lt;span class="desc"&gt;Visa, Mastercard, Amex&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- CSS --&gt;
+&lt;style&gt;
+  /* Opt-in to customizable select */
+  select, ::picker(select) {
+    appearance: base-select;
+  }
+
+  /* Animate picker icon */
+  select::picker-icon {
+    transition: 0.3s rotate;
+  }
+  select:open::picker-icon {
+    rotate: 180deg;
+  }
+
+  /* Style options with rich content */
+  option {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  option:checked {
+    background: #dbeafe;
+    font-weight: 600;
+  }
+
+  /* Custom checkmark */
+  option::checkmark {
+    content: "✓";
+    margin-left: auto;
+  }
+
+  /* Animate dropdown */
+  ::picker(select) {
+    opacity: 0;
+    transition: all 0.3s allow-discrete;
+  }
+  ::picker(select):popover-open {
+    opacity: 1;
+  }
+&lt;/style&gt;</pre>
+
+<h2>8. object-fit - Image Fitting</h2>
+<p>Control how images fit their containers.</p>
+<div class="use-case"><strong>Real-world use case:</strong> Profile pictures, product images, thumbnails, gallery layouts</div>
+<div class="example">
+    <h4 style="margin-top: 0;">User Profiles</h4>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+        <div style="text-align: center;">
+            <div style="width: 120px; height: 120px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; margin: 0 auto 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; color: white; font-size: 3em;">👤</div>
+            <strong>object-fit: cover</strong>
+            <p style="font-size: 0.9em; color: #6b7280; margin: 5px 0;">Fills container, crops if needed</p>
+        </div>
+        <div style="text-align: center;">
+            <div style="width: 120px; height: 120px; background: #f7fafc; border: 2px solid #e2e8f0; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center;">
+                <div style="width: 80%; height: 80%; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2em;">📷</div>
+            </div>
+            <strong>object-fit: contain</strong>
+            <p style="font-size: 0.9em; color: #6b7280; margin: 5px 0;">Fits inside, maintains ratio</p>
+        </div>
+        <div style="text-align: center;">
+            <div style="width: 120px; height: 120px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 8px; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3em;">🖼️</div>
+            <strong>object-fit: fill</strong>
+            <p style="font-size: 0.9em; color: #6b7280; margin: 5px 0;">Stretches to fill container</p>
+        </div>
+    </div>
+</div>
+<pre>img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* or contain, fill, scale-down, none */
+}
+
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}</pre>
+
+<script>
+  // Tooltip handlers for anchor positioning example
+  const tooltips = [
+    { btn: 'save-btn', tooltip: 'save-tooltip' },
+    { btn: 'delete-btn', tooltip: 'delete-tooltip' },
+    { btn: 'share-btn', tooltip: 'share-tooltip' }
+  ];
+
+  tooltips.forEach(({ btn, tooltip }) => {
+    const button = document.getElementById(btn);
+    const tooltipEl = document.getElementById(tooltip);
+    if (button && tooltipEl) {
+      button.addEventListener('mouseenter', () => tooltipEl.style.display = 'block');
+      button.addEventListener('mouseleave', () => tooltipEl.style.display = 'none');
+    }
+  });
+</script>
 </body>
 </html>
